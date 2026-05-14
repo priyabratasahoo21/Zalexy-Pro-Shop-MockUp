@@ -254,3 +254,25 @@ export async function POST() {
     return NextResponse.json({ error: String(error) }, { status: 500 })
   }
 }
+
+export async function DELETE() {
+  try {
+    // Orders depend on customers and items
+    await db.orderItem.deleteMany()
+    await db.order.deleteMany()
+    await db.inventoryLog.deleteMany()
+    await db.productVariant.deleteMany()
+    await db.product.deleteMany()
+    await db.apparel.deleteMany()
+    await db.customer.deleteMany()
+    await db.cashMovement.deleteMany()
+    await db.managerOverride.deleteMany()
+    await db.registerSession.deleteMany()
+    await db.staff.deleteMany()
+    await db.device.deleteMany()
+    
+    return NextResponse.json({ message: 'Database cleared' })
+  } catch (error) {
+    return NextResponse.json({ error: String(error) }, { status: 500 })
+  }
+}
